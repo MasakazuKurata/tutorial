@@ -1,6 +1,8 @@
 here we have one line
+here we add line 2 in the second commit
 here we have the third line
 here we have the fourth line
+here we add line 5 in the third commit
 here we have the sixth line
-
+BLABLABLA this we don't want to commit, obviously
 
