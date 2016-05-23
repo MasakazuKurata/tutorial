@@ -10,9 +10,10 @@
 
 * commands to cover
 
-** git add -p
-
 ** git branch
+
+
+** git add -p
 
 ** commit --ammend
 
@@ -27,7 +28,7 @@
 *** squash, fixup, reword, change order
 
 
-** merge/rebase conclict
+** merge/rebase conflict
 
 
 ** git reflog
