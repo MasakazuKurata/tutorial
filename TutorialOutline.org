@@ -1,6 +1,9 @@
 
 
 * Step 1: setup
+  
+  
+  
 
 * Basics
 
@@ -32,6 +35,7 @@
 
 
 ** git reflog
+
 *** undo merge/rebase/whatever
 
 
