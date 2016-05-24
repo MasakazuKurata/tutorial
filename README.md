@@ -1,37 +1,29 @@
+  
+* basic
+
+** Staging and Commiting
+
+*** Simple commit
+
+*** Selecting code to be commited
+
+*** amending commits
 
 
-* Step 1: setup
+** Re-writing history: Interactive Rebase
 
-* Basics
+*** Switching commits
 
-** Staging
-** Commit
-** Branch
+*** Squas/Fixup commits
 
-* commands to cover
-
-** git branch
-
-
-** git add -p
-
-** commit --ammend
-
-** git push --force and shared history
-
-** Rebase vs merge
-
-
-
-** rebase --interactive
-
-*** squash, fixup, reword, change order
+*** reword'ing commit logs
 
 
 ** merge/rebase conflict
 
 
 ** git reflog
+
 *** undo merge/rebase/whatever
 
 
