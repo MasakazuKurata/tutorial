@@ -72,6 +72,11 @@ Replace `<yourUserName>` by your github username
 ```
    This will list the local branches, if they track a remote branch, and if
    there are differences between the local and remote branch (commits ahead or behind).
+   For example here I am `behind` the remote repository by one commit
+```
+tutorial (master *)$ git branch -vv
+* master abe579c [origin/master: behind 1] Add some t[...]
+```
 
 2. Make a fork in github to your own repository
 
@@ -83,6 +88,14 @@ Replace `<yourUserName>` by your github username
    the list of remotes and where they point run
 ```
      git remote -vv
+```
+For example:
+```
+HEAD (master)$ git remote -vv
+downstream      https://andresailer@github.com/andresailer/iLCUtil.git (fetch)
+downstream      https://andresailer@github.com/andresailer/iLCUtil.git (push)
+origin  https://github.com/iLCSoft/iLCUtil.git (fetch)
+origin  https://github.com/iLCSoft/iLCUtil.git (push)
 ```
 
 ### Working, updating, pushing
@@ -106,7 +119,7 @@ you can incorporate these changes via a `rebase` later.
      git pull origin
 ```
    If you are using the configuration as described above
-   (autosetuprebase=Always), this will `rebase` your local `origin` branch to
+   (`autosetuprebase=always`), this will `rebase` your local `origin` branch to
    the remote `origin` branch.
 
    Now create your `topic` branch
