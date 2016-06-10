@@ -157,6 +157,70 @@ you can incorporate these changes via a `rebase` later.
 4. Open a Pull Request (PR)
    If you push to a branch on github, github will add a notification about your recently pushed branch, and give you directly a button to create a pull request. Click on the button and fill in the fields for the title and description of the pull request. Chose the proper target branch. And create the Pull Request. If github warns you that there are conflicts, you need to rebase your topic branch to the original base branch, by repeating the steps above.
 
+## Example of rebasing
+
+In this example (displayed using the `git lola` alias introduced above), we are
+working in improving this documentation in the `addToDoc` branch, while also
+some changes on the remote repository were done. The `origin/master` and the
+`addToDoc` branch both start from the commit `abe579c` but are diverging.
+
+```
+* f88eaea (HEAD, refs/heads/addToDoc) More description of committing
+* a244a72 Add some notes about staging
+| * c35566d (refs/remotes/origin/master, refs/remotes/origin/HEAD, refs/heads/master) Indentation, description for PR
+| * 33eeb70 Add examples for git commands
+| * 4bf5fb1 Github Markdown
+|/
+* abe579c Add some text for the tutorial for basic git setup and workflow
+```
+Now we want to rebase the `addToDoc` branch to the `origin/master` branch.
+`git branch -vv` also tells us that we are diverging from the `origin/master` (we set addToDoc to track the upstream branch here.)
+
+```
+tutorial (addToDoc)$ git branch -vv
+* addToDoc f88eaea [origin/master: ahead 2, behind 3] More description of committing
+  master   c35566d [origin/master] Indentation, description for PR
+```
+
+Now for rebasing we don't have to update our local master branch, because it is
+already up-to-date. We only need to rebase `addToDoc`. We also add the checkout,
+just to emphasise, that one needs to be on the branch that is supposed to be
+rebased.
+
+
+```
+git checkout addToDoc
+git rebase master
+```
+
+And this will happen
+```
+tutorial (addToDoc)$ git rebase master
+First, rewinding head to replay your work on top of it...
+Applying: Add some notes about staging
+Applying: More description of committing
+```
+
+We are now no longer behind the `origin/master` branch, but only ahead of it
+```
+tutorial (addToDoc *)$ git branch -vv
+* addToDoc 5aea685 [origin/master: ahead 2] More description of committing
+  master   c35566d [origin/master] Indentation, description for PR
+```
+
+Or visually:
+
+```
+* 5aea685 (HEAD, refs/heads/addToDoc) More description of committing
+* fe01d7a Add some notes about staging
+* c35566d (refs/remotes/origin/master, refs/remotes/origin/HEAD, refs/heads/master) Indentation, description for PR
+* 33eeb70 Add examples for git commands
+* 4bf5fb1 Github Markdown
+* abe579c Add some text for the tutorial for basic git setup and workflow
+```
+the `addToDoc` branch is now a simple continuation of the `origin/master` branch
+
+
 
 # Tutorial
 
