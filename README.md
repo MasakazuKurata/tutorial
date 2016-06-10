@@ -163,7 +163,41 @@ you can incorporate these changes via a `rebase` later.
 
 ## Staging and Committing
 
+Commiting in git is split in different steps. First you prepare what you want to
+commit. You can pick entire files, or just parts of changes in individual files.
+Use `git status` to display the currently tracked files, untracked files, files
+with modification, and files with staged changes.
+
 ### Simple commit
+
+After modifications of a file 
+
+```
+tutorial (addToDoc *)$ git status
+On branch addToDoc
+Your branch is behind 'origin/master' by 3 commits, and can be fast-forwarded.
+  (use "git pull" to update your local branch)
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+        modified:   README.md
+
+no changes added to commit (use "git add" and/or "git commit -a")
+```
+
+To simply add a file for the next commit do for example
+```
+git add README.md
+```
+
+Then the status will be:
+```
+
+```
+
+
 
 ### Selecting code to be committed
 
