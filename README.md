@@ -155,7 +155,11 @@ you can incorporate these changes via a `rebase` later.
    See later in the tutorial about force'd pushing, if you had to rebase, or changed local commits after pushing to your remote repository
    
 4. Open a Pull Request (PR)
-   If you push to a branch on github, github will add a notification about your recently pushed branch, and give you directly a button to create a pull request. Click on the button and fill in the fields for the title and description of the pull request. Chose the proper target branch. And create the Pull Request. If github warns you that there are conflicts, you need to rebase your topic branch to the original base branch, by repeating the steps above.
+   If you push to a branch on github, github will add a notification about your recently pushed branch, and give you directly a button to create a pull request.
+   ![Github open pull request](images/PRQuestion.png?raw=true "OpenPR")
+   Click on the button and fill in the fields for the title and description of the pull request. Chose the proper target branch. 
+   ![Github describe PR](images/PR_step2.png?raw=true "DEscPR")
+And create the Pull Request. If github warns you that there are conflicts, you need to rebase your topic branch to the original base branch, by repeating the steps above.
 
 ## Example of rebasing
 
