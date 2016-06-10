@@ -157,15 +157,181 @@ you can incorporate these changes via a `rebase` later.
 4. Open a Pull Request (PR)
    If you push to a branch on github, github will add a notification about your recently pushed branch, and give you directly a button to create a pull request. Click on the button and fill in the fields for the title and description of the pull request. Chose the proper target branch. And create the Pull Request. If github warns you that there are conflicts, you need to rebase your topic branch to the original base branch, by repeating the steps above.
 
+## Example of rebasing
+
+In this example (displayed using the `git lola` alias introduced above), we are
+working in improving this documentation in the `addToDoc` branch, while also
+some changes on the remote repository were done. The `origin/master` and the
+`addToDoc` branch both start from the commit `abe579c` but are diverging.
+
+```
+* f88eaea (HEAD, refs/heads/addToDoc) More description of committing
+* a244a72 Add some notes about staging
+| * c35566d (refs/remotes/origin/master, refs/remotes/origin/HEAD, refs/heads/master) Indentation, description for PR
+| * 33eeb70 Add examples for git commands
+| * 4bf5fb1 Github Markdown
+|/
+* abe579c Add some text for the tutorial for basic git setup and workflow
+```
+Now we want to rebase the `addToDoc` branch to the `origin/master` branch.
+`git branch -vv` also tells us that we are diverging from the `origin/master` (we set addToDoc to track the upstream branch here.)
+
+```
+tutorial (addToDoc)$ git branch -vv
+* addToDoc f88eaea [origin/master: ahead 2, behind 3] More description of committing
+  master   c35566d [origin/master] Indentation, description for PR
+```
+
+Now for rebasing we don't have to update our local master branch, because it is
+already up-to-date. We only need to rebase `addToDoc`. We also add the checkout,
+just to emphasise, that one needs to be on the branch that is supposed to be
+rebased.
+
+
+```
+git checkout addToDoc
+git rebase master
+```
+
+And this will happen
+```
+tutorial (addToDoc)$ git rebase master
+First, rewinding head to replay your work on top of it...
+Applying: Add some notes about staging
+Applying: More description of committing
+```
+
+We are now no longer behind the `origin/master` branch, but only ahead of it
+```
+tutorial (addToDoc *)$ git branch -vv
+* addToDoc 5aea685 [origin/master: ahead 2] More description of committing
+  master   c35566d [origin/master] Indentation, description for PR
+```
+
+Or visually:
+
+```
+* 5aea685 (HEAD, refs/heads/addToDoc) More description of committing
+* fe01d7a Add some notes about staging
+* c35566d (refs/remotes/origin/master, refs/remotes/origin/HEAD, refs/heads/master) Indentation, description for PR
+* 33eeb70 Add examples for git commands
+* 4bf5fb1 Github Markdown
+* abe579c Add some text for the tutorial for basic git setup and workflow
+```
+the `addToDoc` branch is now a simple continuation of the `origin/master` branch
+
+
 
 # Tutorial
 
 
 ## Staging and Committing
 
+Commiting in git is split in different steps. First you prepare what you want to
+commit. You can pick entire files, or just parts of changes in individual files.
+Use `git status` to display the currently tracked files, untracked files, files
+with modification, and files with staged changes.
+
 ### Simple commit
 
+After modifications of a file
+
+```
+tutorial (addToDoc *)$ git status
+On branch addToDoc
+Your branch is behind 'origin/master' by 3 commits, and can be fast-forwarded.
+  (use "git pull" to update your local branch)
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+	modified:   README.md
+
+no changes added to commit (use "git add" and/or "git commit -a")
+```
+
+To simply add a file for the next commit do for example
+```
+git add README.md
+```
+
+Then the status will be:
+```
+tutorial (addToDoc +)$ git status
+On branch addToDoc
+Changes to be committed:
+  (use "git reset HEAD <file>..." to unstage)
+
+	modified:   README.md
+```
+
+Further changes to these file are not automatically staged! If editing the file
+after staging you will see
+```
+tutorial (addToDoc *+)$ git status
+On branch addToDoc
+Changes to be committed:
+  (use "git reset HEAD <file>..." to unstage)
+
+	modified:   README.md
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+	modified:   README.md
+```
+
+Git also tells you how to remove the changes from the staging area `git reset
+HEAD <file>`, or how to add more files. etc.
+
+If all the desired changes are staged, we can commit them
+```
+git commit -m"Short description
+
+Longer description about why we just needed to make this commit
+Refering to Issue ID #1224 and the bug it solved"
+```
+
 ### Selecting code to be committed
+
+You should use
+
+```
+git add --patch [-p]  [FileName]
+```
+
+to make sure you are only commiting what you want to commit.  This gives you the
+possibility to review your code, and avoid commiting debug print outs, changes
+that should go to an extra commit or similar problems. `git add -p` will prompt you for every change if it should be staged. And allways tell you about your options.
+
+```
+tutorial (addToDoc *+)$ git add -p
+diff --git a/README.md b/README.md
+index 7738ee0..9821646 100644
+--- a/README.md
++++ b/README.md
+@@ -150,7 +150,7 @@ with modification, and files with staged changes.
+
+ ### Simple commit
+
+-After modifications of a fil
++After modifications of a file
+
+ ```
+ tutorial (addToDoc *)$ git status
+Stage this hunk [y,n,q,a,d,/,j,J,g,e,?]?
+```
+
+Here we made a typo in a previous commit, and want to add the "e" in "file". By
+entering `y` we accept this `hunk` for the next commit. All options are
+described when entering "?".
+
+
+To see the staged changes use `git diff --staged`, `git diff` will only show the
+non-staged changes.
+
 
 ### Amending commits
 
