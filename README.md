@@ -170,7 +170,7 @@ with modification, and files with staged changes.
 
 ### Simple commit
 
-After modifications of a file 
+After modifications of a file
 
 ```
 tutorial (addToDoc *)$ git status
@@ -182,7 +182,7 @@ Changes not staged for commit:
   (use "git add <file>..." to update what will be committed)
   (use "git checkout -- <file>..." to discard changes in working directory)
 
-        modified:   README.md
+	modified:   README.md
 
 no changes added to commit (use "git add" and/or "git commit -a")
 ```
@@ -194,12 +194,80 @@ git add README.md
 
 Then the status will be:
 ```
+tutorial (addToDoc +)$ git status
+On branch addToDoc
+Changes to be committed:
+  (use "git reset HEAD <file>..." to unstage)
 
+	modified:   README.md
 ```
 
+Further changes to these file are not automatically staged! If editing the file
+after staging you will see
+```
+tutorial (addToDoc *+)$ git status
+On branch addToDoc
+Changes to be committed:
+  (use "git reset HEAD <file>..." to unstage)
 
+	modified:   README.md
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+	modified:   README.md
+```
+
+Git also tells you how to remove the changes from the staging area `git reset
+HEAD <file>`, or how to add more files. etc.
+
+If all the desired changes are staged, we can commit them
+```
+git commit -m"Short description
+
+Longer description about why we just needed to make this commit
+Refering to Issue ID #1224 and the bug it solved"
+```
 
 ### Selecting code to be committed
+
+You should use
+
+```
+git add --patch [-p]  [FileName]
+```
+
+to make sure you are only commiting what you want to commit.  This gives you the
+possibility to review your code, and avoid commiting debug print outs, changes
+that should go to an extra commit or similar problems. `git add -p` will prompt you for every change if it should be staged. And allways tell you about your options.
+
+```
+tutorial (addToDoc *+)$ git add -p
+diff --git a/README.md b/README.md
+index 7738ee0..9821646 100644
+--- a/README.md
++++ b/README.md
+@@ -150,7 +150,7 @@ with modification, and files with staged changes.
+
+ ### Simple commit
+
+-After modifications of a fil
++After modifications of a file
+
+ ```
+ tutorial (addToDoc *)$ git status
+Stage this hunk [y,n,q,a,d,/,j,J,g,e,?]?
+```
+
+Here we made a typo in a previous commit, and want to add the "e" in "file". By
+entering `y` we accept this `hunk` for the next commit. All options are
+described when entering "?".
+
+
+To see the staged changes use `git diff --staged`, `git diff` will only show the
+non-staged changes.
+
 
 ### Amending commits
 
