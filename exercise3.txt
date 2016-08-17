@@ -8,3 +8,8 @@ line 4
 * counting to 8
 
 * counting to 12
+
+line 9
+line 10
+line 11
+line 12
