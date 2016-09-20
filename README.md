@@ -22,6 +22,7 @@ In your *~/.gitconfig*
   [branch]
 	autosetuprebase = always
   [push]
+  	## for newer versions of git, otherwise try "simple"
 	default = matching
 ```
 This defines some useful alias. Turns on color for some commands. It defines a
