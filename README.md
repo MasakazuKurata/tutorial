@@ -80,6 +80,8 @@ Replace `<yourUserName>` by your github username
    ```
 
 2. Make a fork in github to your own repository
+   Click on the "Fork" button at the top right of the page. Next to "(Un)Watch, (Un)Star"
+
 
 3. Add a "downstream" remote pointing to your fork on github
    ```
