@@ -60,7 +60,7 @@ packages. For other packages just change the package name. You can also use the
 ssh to clone repositories, see the git(hub) documentation for that.
 Replace `<yourUserName>` by your github username
 
-1. Clone the repository to your local workstation
+#### Clone the repository to your local workstation
    ```
      git clone https://github.com/iLCSoft/iLCUtil.git HEAD
    ```
@@ -79,11 +79,11 @@ Replace `<yourUserName>` by your github username
    * master abe579c [origin/master: behind 1] Add some t[...]
    ```
 
-2. Make a fork in github to your own repository
+#### Make a fork in github to your own repository
    Click on the "Fork" button at the top right of the page. Next to "(Un)Watch, (Un)Star"
 
 
-3. Add a "downstream" remote pointing to your fork on github
+#### Add a "downstream" remote pointing to your fork on github
    ```
      git remote add downstream https://<yourUserName>@github.com/<yourUserName>/iLCUtil.git
    ```
@@ -107,7 +107,7 @@ To develop new features or fix bugs, always create a `topic` branch from the
 latest development of the `origin`. If there are commits added to the `origin`
 you can incorporate these changes via a `rebase` later.
 
-1. Make sure you have all the latest changes
+#### Make sure you have all the latest changes
    ```
    git fetch origin
    ```
@@ -125,7 +125,7 @@ you can incorporate these changes via a `rebase` later.
    (`autosetuprebase=always`), this will `rebase` your local `origin` branch to
    the remote `origin` branch.
 
-2. Now create your `topic` branch
+#### Now create your `topic` branch
    ```
    git checkout master
    git checkout -b newFeature
@@ -151,13 +151,13 @@ you can incorporate these changes via a `rebase` later.
    If there are conflicts git will tell you how to resolve them. Also see
    further down in the tutorial about resolving conflicts during rebase.
 
-3. Push you local changes to your `downstream` remote
+#### Push you local changes to your `downstream` remote
    ```
    git push downstream newFeature
    ```
    See later in the tutorial about force'd pushing, if you had to rebase, or changed local commits after pushing to your remote repository
    
-4. Open a Pull Request (PR)
+#### Open a Pull Request (PR)
    If you push to a branch on github, github will add a notification about your recently pushed branch, and give you directly a button to create a pull request.
    ![Github open pull request](images/PRQuestion.png?raw=true "OpenPR")
    Click on the button and fill in the fields for the title and description of the pull request. Chose the proper target branch. 
