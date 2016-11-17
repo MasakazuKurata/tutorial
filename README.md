@@ -34,8 +34,7 @@ pushes are done to matching branches.
 ### BashCompletion and GitPrompt
 
 Enable the bash-completion for git and consider installing the "git-prompt", to
-see the current branch, and if there are uncommitted changes consider installing
-the git prompt
+see the current branch, and if there are uncommitted changes 
 
   http://code-worrier.com/blog/git-branch-in-bash-prompt/
 
@@ -326,9 +325,7 @@ index 7738ee0..9821646 100644
 -After modifications of a fil
 +After modifications of a file
 
- ```
- tutorial (addToDoc *)$ git status
-Stage this hunk [y,n,q,a,d,/,j,J,g,e,?]?
+  Stage this hunk [y,n,q,a,d,/,j,J,g,e,?]?
 ```
 
 Here we made a typo in a previous commit, and want to add the "e" in "file". By
