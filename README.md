@@ -123,6 +123,9 @@ you can incorporate these changes via a `rebase` later.
    If you are using the configuration as described above
    (`autosetuprebase=always`), this will `rebase` your local `origin` branch to
    the remote `origin` branch.
+   
+   If you have local changes that are not commited `pull` (i.e., `rebase`) will not be alllowed.
+   Use [git stash](#git-stash) for storing your changes without commiting them
 
 #### Now create your `topic` branch
    ```
@@ -353,4 +356,14 @@ non-staged changes.
 
 ### undo merge/rebase/whatever
 
-## git stash (save, pop, drop)
+## git stash
+
+`pull`, `rebase`, `checkout` might not be allowed if there are uncommited changes in the working directory. To quickly get rid of the changes there is `git stash`.
+I.e.:
+* `git stash` to move all changes into a stash at the current commit, equivalent to `git stash save`
+* `git stash pop` to apply the latest stash to the current working tree.
+
+There can be more than one stash at a time:
+
+`git stash` shows all stashes, `git stash drop stash@{0}` can be used to remove a stash without applying it
+
