@@ -134,8 +134,10 @@ you can incorporate these changes via a `rebase` later.
    ```
    This will create a new branch call `newFeature` based from the current branch
    `master`, if you want the branch off from a different branch just it out
-   before hand. Now you can develop, commit, commit, and commit (see later about changing commits after the fact, rebase interactive, etc.). Before making a
-   Pull Request you want to have all the other developments that might have
+   before hand. Now you can develop, commit, commit, and commit (see later about changing commits after the fact, rebase interactive, etc.). 
+   
+##### Updating before making the Pull Request
+   Before making a Pull Request you want to have all the other developments that might have
    occurred incorporated into your branch. So
    ```
    git fetch origin
@@ -152,6 +154,7 @@ you can incorporate these changes via a `rebase` later.
    ```
    If there are conflicts git will tell you how to resolve them. Also see
    further down in the tutorial about resolving conflicts during rebase.
+   Make sure you have set the `autosetuprebase=always` in the config as shown [above](#configuration)
 
 #### Push you local changes to your `downstream` remote
    ```
