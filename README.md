@@ -136,9 +136,9 @@ you can incorporate these changes via a `rebase` later.
    `master`, if you want the branch off from a different branch just it out
    before hand. Now you can develop, commit, commit, and commit (see later about changing commits after the fact, rebase interactive, etc.). 
    
-##### Updating before making the Pull Request
+##### Incorporating upstream changes after creating the branch (rebasing)
    Before making a Pull Request you want to have all the other developments that might have
-   occurred incorporated into your branch. So
+   occurred incorporated into your branch. This is also possible to do after the Pull Request was created, when pushing the branch downstream the Pull Request is automatically updated. So
    ```
    git fetch origin
    git branch -vv
@@ -160,7 +160,11 @@ you can incorporate these changes via a `rebase` later.
    ```
    git push downstream newFeature
    ```
-   See later in the tutorial about force'd pushing, if you had to rebase, or changed local commits after pushing to your remote repository
+   See later in the tutorial about force'd pushing, if you had to rebase, or changed local commits after pushing to your remote repository. if you have updated your history, for example with rebasing, you have to `force` push
+   ```
+   git push -f downstream newFeature
+   ```
+   
    
 #### Open a Pull Request (PR)
    If you push to a branch on github, github will add a notification about your recently pushed branch, and give you directly a button to create a pull request.
