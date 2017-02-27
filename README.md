@@ -127,6 +127,29 @@ you can incorporate these changes via a `rebase` later.
    If you have local changes that are not commited `pull` (i.e., `rebase`) will not be alllowed.
    Use [git stash](#git-stash) for storing your changes without commiting them
 
+
+##### Make sure your master branch is not _ahead_ of the origin
+
+Make sure you don't have any commits on your `master` branch that are not part of the upstream `master`.
+This means
+```
+git branch -vv
+master             abcd1234 [origin/master: behind 9] useful commit message
+```
+Here you can `git pull` to obtain the commits from the origin without any problems.
+
+It should never say `ahead` for the master branch. I.e., this shouldn't be the case
+```
+git branch -vv
+master             absc1234  [origin/master: ahead 12] foobar
+```
+If that is the case you need to figure out if the commits on your master are worth keeping, then rename the branch and get a new fresh master from origin.
+```
+git checkout master
+git branch -m backupMaster ## rename the branch
+```
+or reset the branch to the `origin/master`.
+
 #### Now create your `topic` branch
    ```
    git checkout master
@@ -312,7 +335,8 @@ Refering to Issue ID #1224 and the bug it solved"
 
 ### Selecting code to be committed
 
-You should use
+You 
+use
 
 ```
 git add --patch [-p]  [FileName]
