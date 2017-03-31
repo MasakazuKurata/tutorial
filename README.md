@@ -384,9 +384,9 @@ non-staged changes.
 ## merge/rebase conflict
 
 During rebasing conflicts between changes in your branch and the other branch can occur.
-(As mentioned in the very beggining of this tutorial you should install the "git prompt" as it will tell you about the different staged of rebasing and eliminate the confusion about what is going on.)
+(As mentioned in the very beggining of this tutorial you should install the "git prompt" as it will tell you about the different stages of rebasing and eliminate the confusion about what is going on.)
 
-So lets they we have to rebase our feature branch to an updated master:
+So lets say we have to rebase our feature branch to an updated master:
 ```
 (otherBranch) $ git checkout featureGranch
 (featureBranch) $ git rebase master
@@ -452,7 +452,7 @@ In the file, where the conflict occurs, the two different versions lines are mar
     }
 ```
 
-Now use your favourite editor (i.e., emacs) to open the file and pick one or the other solution, or merge the two things into one that is different from both. (Emacs offers the `smerge-ediff` mode to give a nice graphical interface to resolve merge conflicts.)
+Now use your favourite editor (i.e., emacs) to open the file and pick one, or the other solution, or merge the two things into one that is different from both. (Emacs offers the `smerge-ediff` mode to give a nice graphical interface to resolve merge conflicts.)
 
 After we resolved the conflict git status will show
 ```
@@ -493,7 +493,7 @@ And it finishes successful until the end. If there are more conflicts they need 
 Note now that "git-prompt" no longer shows the "REBASE" comment as we finished our rebase.
 
 It can also happen that we only want to pick the changes from master, and our own commit has become useless.
-In that case the commit might become empty in this case instead of `git rebase --continue` we need to use `git rebase --skip` to advance to the next step.
+In that case the commit is empty and instead of `git rebase --continue` we need to use `git rebase --skip` to advance to the next step.
 
 
 
