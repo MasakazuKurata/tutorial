@@ -383,6 +383,124 @@ non-staged changes.
 
 ## merge/rebase conflict
 
+During rebasing conflicts between changes in your branch and the other branch can occur.
+(As mentioned in the very beggining of this tutorial you should install the "git prompt" as it will tell you about the different staged of rebasing and eliminate the confusion about what is going on.)
+
+So lets they we have to rebase our feature branch to an updated master:
+```
+(otherBranch) $ git checkout featureGranch
+(featureBranch) $ git rebase master
+First, rewinding head to replay your work on top of it...
+Applying: Implementation of anti-DID XYZ field-map reader
+Using index info to reconstruct a base tree...
+M       detector/other/FieldMapXYZ.cpp
+Auto-merging detector/other/FieldMapXYZ.cpp
+CONFLICT (content): Merge conflict in detector/other/FieldMapXYZ.cpp
+error: Failed to merge in the changes.
+Patch failed at 0001 Implementation of anti-DID XYZ field-map reader
+The copy of the patch that failed is found in: .git/rebase-apply/patch
+
+When you have resolved this problem, run "git rebase --continue".
+If you prefer to skip this patch, run "git rebase --skip" instead.
+To check out the original branch and stop rebasing, run "git rebase --abort".
+
+```
+Git tells you here how to resolve the conflict, or how to end the rebase attempt right now with `git rebase --abort`
+If you do not abort, `git-prompt` tells you that your are currently rebasing
+```
+(featureBranch *+|REBASE 1/10) $
+```
+
+Git status will tell you about which files have a conflict
+```
+(AntiDIDFieldMap *+|REBASE 1/10)$ git st
+rebase in progress; onto cd32419
+You are currently rebasing branch 'AntiDIDFieldMap' on 'cd32419'.
+  (fix conflicts and then run "git rebase --continue")
+  (use "git rebase --skip" to skip this patch)
+  (use "git rebase --abort" to check out the original branch)
+
+Changes to be committed:
+  (use "git reset HEAD <file>..." to unstage)
+
+        modified:   detector/include/FieldMapXYZ.h
+
+Unmerged paths:
+  (use "git reset HEAD <file>..." to unstage)
+  (use "git add <file>..." to mark resolution)
+
+        both modified:   detector/other/FieldMapXYZ.cpp
+
+```
+Here the file `FieldMapXYZ.cpp` has conflicts, in the same commit the file `FieldMapXYZ.h` was changed without giving conflicts.
+We will now resolve the conflict in `FieldMAPXYZ.cpp` and then continue our rebase. During the rebase the commit message and other changes in the code are pre-served. We just need to solve the conflicts.
+
+In the file, where the conflict occurs, the two different versions lines are marked in merge markers:
+```
+++<<<<<<< cd32419b622beb5f22de23aa6c9b0ec0e5ab5d4b
+ +  if (not ( 0.0 <= x && x <= rhoMax &&
+ +          0.0 <= y && y <= zMax ) ) {
+ +
+++=======
++   if (not ( x >= xMin && x <= xMax &&
++             y >= yMin && y <= yMax &&
++             z >= zMin && z <= zMax )
++      ) {
++     globalField[0] = globalField[1] = globalField[2] = 0.0;
+++>>>>>>> Implementation of anti-DID XYZ field-map reader
+      return;
+    }
+```
+
+Now use your favourite editor (i.e., emacs) to open the file and pick one or the other solution, or merge the two things into one that is different from both. (Emacs offers the `smerge-ediff` mode to give a nice graphical interface to resolve merge conflicts.)
+
+After we resolved the conflict git status will show
+```
+(AntiDIDFieldMap +|REBASE 1/10)$ git st
+rebase in progress; onto cd32419
+You are currently rebasing branch 'AntiDIDFieldMap' on 'cd32419'.
+  (all conflicts fixed: run "git rebase --continue")
+
+Changes to be committed:
+  (use "git reset HEAD <file>..." to unstage)
+
+        modified:   detector/include/FieldMapXYZ.h
+        modified:   detector/other/FieldMapXYZ.cpp
+```
+
+(Note that this was done with git version 2.9.2, in older versions of git an additional `git add detector/other/FieldMapXYZ.cpp` might be necessary)
+
+In this case we had to change the `FieldMapXYZ.cpp` to incorporate the changes from master with ours. So now we continue with the rebase
+```
+(AntiDIDFieldMap +|REBASE 1/10)$ git rebase --continue
+Applying: Implementation of anti-DID XYZ field-map reader
+Applying: Use of anti-DID XYZ field-map reader
+Applying: New solenoid and anti-DID field maps (Feb. 23th 2017)
+Applying: Little but fix in specification of solenoid and anti-DID field maps
+Applying: Little but fix in specification of solenoid and anti-DID field maps
+Applying: Little bug fix in FieldMapXYZ
+Applying: Giving different names to Solenoid and antiDID field-maps
+Applying: Added some print-outs in case of errors
+Applying: Added some print-outs in case of errors
+Using index info to reconstruct a base tree...
+M       detector/other/FieldMapBrBz.cpp
+Falling back to patching base and 3-way merge...
+Auto-merging detector/other/FieldMapBrBz.cpp
+Applying: Let constant B-field as defaut and leave field maps, both solenoid and anti-DID, commented out
+2017-03-31 13:22 sailer@pclcd17:/data/sailer/software/ILCSOFT/HEAD-2016-12-05/lcgeo/HEAD (AntiDIDFieldMap)$
+```
+And it finishes successful until the end. If there are more conflicts they need to be resolved as shown before.
+Note now that "git-prompt" no longer shows the "REBASE" comment as we finished our rebase.
+
+It can also happen that we only want to pick the changes from master, and our own commit has become useless.
+In that case the commit might become empty in this case instead of `git rebase --continue` we need to use `git rebase --skip` to advance to the next step.
+
+
+
+
+
+
+
 ## git reflog
 
 ### undo merge/rebase/whatever
